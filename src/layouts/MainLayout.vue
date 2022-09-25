@@ -128,6 +128,7 @@ export default defineComponent({
       $q.dialog({
         title: 'Logout',
         message: 'Do you really want to leave ?',
+        color: 'info',
         cancel: true,
         persistent: true
       }).onOk(async () => {

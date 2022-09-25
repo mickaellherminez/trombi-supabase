@@ -9,8 +9,9 @@
         <q-input label="Password" color="info" v-model="form.password" />
 
 
-        <div class="full-width q-pt-md">
+        <div class="full-width q-pt-md q-gutter-y-sm">
           <q-btn label="Register" color="info" class="full-width" outline rounded type="submit" />
+          <q-btn label="Back" color="dark" class="full-width" rounded flat :to="{ name: 'login'}" />
         </div>
       </div>
     </q-form>
@@ -29,7 +30,7 @@ export default defineComponent({
     const router = useRouter()
     const { register } = useAuthUser()
 
-    const form = ref ({
+    const form = ref({
       name: '',
       email: '',
       password: ''
@@ -38,7 +39,7 @@ export default defineComponent({
     const handleRegister = async () => {
       try {
         await register(form.value)
-        router.push ( {
+        router.push({
           name: 'email-confirmation',
           query: { email: form.value.email }
         })

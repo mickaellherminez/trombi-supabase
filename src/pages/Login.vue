@@ -10,13 +10,25 @@
           <q-btn label="Login" color="info" class="full-width" outline rounded type="submit" />
         </div>
 
-        <div class= "full-width">
+        <div class= "full-width q-gutter-y-sm">
           <q-btn
             label="Register"
             color="info"
             class="full-width"
+            rounded
             flat
-            to="/register" />
+            to="/register"
+            size="sm"
+            />
+          <q-btn
+            label="Forgot Password ?"
+            color="info"
+            class="full-width"
+            rounded
+            flat
+            :to="{ name: 'forgot-password'}"
+            size="sm"
+            />
         </div>
       </div>
     </q-form>
