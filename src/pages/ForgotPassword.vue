@@ -7,8 +7,9 @@
         <q-input
           label="Email"
           v-model="email"
+          color="info"
           lazy-rules
-          :rules="[val => (val && val.length > 0) || 'Email is required']"
+          :rules="[val => validateEmail(val),]"
           type="email"
         />
 
@@ -60,6 +61,15 @@ export default defineComponent({
     return {
       email,
       handleForgotPassowrd
+    }
+  },
+  methods: {
+    validateEmail(email) {
+      if (email) {
+        return /[a-z0-9]+@gmail.com/.test(email) ? true : 'Objectware email required';
+      } else {
+        return 'Email is required'
+      }
     }
   }
 })
