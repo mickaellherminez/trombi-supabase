@@ -4,10 +4,12 @@
       <p class="col-12 text-h5 text-center"> Register </p>
       <div class="col-md-4 col-sm-6 col-xs-10 q-gutter-y-md">
 
-        <q-input label="Name" color="info" v-model="form.name" lazy-rules :rules="[val => (val && val.length > 0) || 'Name is required']" />
-        <q-input label="Email" color="info" v-model="form.email" lazy-rules :rules="[val => validateEmail(val),]"  />
+        <q-input label="Name" color="info" v-model="form.name" lazy-rules
+          :rules="[val => (val && val.length > 0) || 'Name is required']" />
+        <q-input label="Email" color="info" v-model="form.email" lazy-rules :rules="[val => validateEmail(val),]" />
 
-          <q-input v-model="form.password" label="New Password" color="info" :type="isPwd ? 'password' : 'text'" lazy-rules :rules="[val => (val && val.length >= 6) || 'Password required with minimum 6 characters']">
+        <q-input v-model="form.password" label="Password" color="info" :type="isPwd ? 'password' : 'text'" lazy-rules
+          :rules="[val => (val && val.length >= 6) || 'Password required with minimum 6 characters']">
           <template v-slot:append>
             <q-icon :name="isPwd ? 'visibility_off' : 'visibility'" class="cursor-pointer" @click="isPwd = !isPwd" />
           </template>
