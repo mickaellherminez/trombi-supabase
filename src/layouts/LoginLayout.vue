@@ -18,6 +18,24 @@
     <q-page-container>
       <router-view />
     </q-page-container>
+
+
+
+    <q-footer elevated class="text-black" style="height:40px">
+      <q-toolbar>
+        <q-toolbar-title class="text-subtitle1 text-left col-lg-2 q-mb-md">V{{version}}</q-toolbar-title>
+        <q-toolbar-title class="text-center q-mb-md">
+          <q-btn flat round @click="goTo('https://www.facebook.com/Objectware-486743308145905')" icon="mdi-facebook" />
+          <q-btn flat round @click="goTo('https://twitter.com/Objectware1')" icon="mdi-twitter" />
+          <q-btn flat round @click="goTo('https://www.instagram.com/objectware/')" icon="mdi-instagram" />
+          <q-btn flat round @click="goTo('https://www.youtube.com/channel/UCZRfp0p4vC8WxbQVAymuZjw')" icon="mdi-youtube" />
+          <q-btn flat round @click="goTo('https://www.objectware.fr/')" icon="mdi-web" />
+          <q-btn flat round @click="goTo('https://www.linkedin.com/company/objectware/mycompany/verification/')" icon="mdi-linkedin" />
+          <q-btn flat round @click="goTo('https://training.objectware.fr/')" icon="mdi-school" />
+        </q-toolbar-title>
+        <q-toolbar-title class="text-subtitle1 text-right col-lg-2 q-mb-md">TeamJS©{{ year }}</q-toolbar-title>
+      </q-toolbar>
+    </q-footer>
   </q-layout>
 </template>
 
@@ -29,6 +47,11 @@ export default defineComponent({
 
   setup() {
     return {
+      version: JSON.stringify(require("../../package.json").version).replaceAll('"', ''),
+      year: new Date().getFullYear(),
+      goTo (url) {
+        window.open(url, '_blank')
+      }
     }
   }
 })
