@@ -3,7 +3,11 @@
     <q-header elevated>
       <q-toolbar class="text-black">
         <q-toolbar-title>
-          <q-btn :to="{ name: 'register' }" outline  color="info">
+          <q-btn v-if="$q.screen.lt.xs || $q.screen.lt.sm" :to="{ name: 'register' }" outline  color="info">
+            <img alt="One Resources logo"
+              src="~assets/One-resources-logo-short-r.png" style="height: 32px;">
+          </q-btn>
+          <q-btn v-else :to="{ name: 'register' }" outline  color="info">
             <img alt="One Resources logo"
               src="~assets/One-resources-logo.png" style="width: 200px;">
           </q-btn>
