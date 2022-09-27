@@ -3,7 +3,10 @@
     <q-header elevated>
       <q-toolbar class="text-black">
         <q-toolbar-title>
-          Trombi
+          <q-btn :to="{ name: 'register' }" outline  color="info">
+            <img alt="One Resources logo"
+              src="~assets/One-resources-logo.png" style="width: 200px;">
+          </q-btn>
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
@@ -20,7 +23,7 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'LoginLayout',
 
-  setup () {
+  setup() {
     return {
     }
   }
