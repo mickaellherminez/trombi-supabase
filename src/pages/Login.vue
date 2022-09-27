@@ -1,41 +1,52 @@
 <template>
   <q-page padding>
-    <div class="frame" v-if="loader">
-      <div class="circle"></div>
-      <div class="line left"></div>
-      <div class="line right"></div>
-      <div class="bracket left"></div>
-      <div class="bracket right"></div>
-      <div class="small top">Wellcome to</div>
-      <div class="big">One Resources</div>
-      <div class="small bottom">ObjectWare</div>
-      <div class="hide top"></div>
-      <div class="hide bottom"></div>
-    </div>
-
-    <q-form v-else class="row justify-center" @submit.prevent="handleLogin">
-      <p class="col-12 text-h5 text-center"> Login </p>
-      <div class="col-md-4 col-sm-6 col-xs-10 q-gutter-y-md">
-        <q-input label="Email" color="info" v-model="form.email" lazy-rules :rules="[val => validateEmail(val),]" />
-
-        <q-input v-model="form.password" label="Password" :type="isPwd ? 'password' : 'text'" lazy-rules
-          :rules="[val => (val && val.length >= 6) || 'Password required with minimum 6 characters']">
-          <template v-slot:append>
-            <q-icon :name="isPwd ? 'visibility_off' : 'visibility'" class="cursor-pointer" @click="isPwd = !isPwd" />
-          </template>
-        </q-input>
-
-        <div class="full-width q-pt-md">
-          <q-btn label="Login" color="info" class="full-width" outline rounded type="submit" />
-        </div>
-
-        <div class="full-width q-gutter-y-sm">
-          <q-btn label="Register" color="info" class="full-width" rounded flat to="/register" size="sm" />
-          <q-btn label="Forgot Password ?" color="info" class="full-width" rounded flat :to="{ name: 'forgot-password'}"
-            size="sm" />
-        </div>
+    <transition
+      appear
+      enter-active-class="animated backInUp"
+      leave-active-class="animated backOutUp"
+      v-show="loader"
+      >
+        <div class="frame">
+          <div class="circle"></div>
+          <div class="line left"></div>
+          <div class="line right"></div>
+          <div class="bracket left"></div>
+          <div class="bracket right"></div>
+          <div class="small top">Wellcome to</div>
+          <div class="big">One Resources</div>
+          <div class="small bottom">ObjectWare</div>
+          <div class="hide top"></div>
+          <div class="hide bottom"></div>
       </div>
-    </q-form>
+    </transition>
+    <transition
+      enter-active-class="animated backInUp"
+      v-show="!loader"
+      >
+      <q-form class="row justify-center" @submit.prevent="handleLogin">
+        <p class="col-12 text-h5 text-center"> Login </p>
+        <div class="col-md-4 col-sm-6 col-xs-10 q-gutter-y-md">
+          <q-input label="Email" color="info" v-model="form.email" lazy-rules :rules="[val => validateEmail(val),]" />
+
+          <q-input v-model="form.password" label="Password" :type="isPwd ? 'password' : 'text'" lazy-rules
+            :rules="[val => (val && val.length >= 6) || 'Password required with minimum 6 characters']">
+            <template v-slot:append>
+              <q-icon :name="isPwd ? 'visibility_off' : 'visibility'" class="cursor-pointer" @click="isPwd = !isPwd" />
+            </template>
+          </q-input>
+
+          <div class="full-width q-pt-md">
+            <q-btn label="Login" color="info" class="full-width" outline rounded type="submit" />
+          </div>
+
+          <div class="full-width q-gutter-y-sm">
+            <q-btn label="Register" color="info" class="full-width" rounded flat to="/register" size="sm" />
+            <q-btn label="Forgot Password ?" color="info" class="full-width" rounded flat :to="{ name: 'forgot-password'}"
+              size="sm" />
+          </div>
+        </div>
+      </q-form>
+    </transition>
   </q-page>
 </template>
 
