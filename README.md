@@ -1,4 +1,4 @@
-# trombi (trombi)
+# One-Resources aka 🔭 Trombi-One 👍
 
 Trombi project
 
