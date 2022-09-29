@@ -1,4 +1,4 @@
-# trombi (trombi)
+# One-Resources aka 🔭 Trombi-One 👍
 
 Trombi project
 
@@ -39,3 +39,12 @@ quasar build
 
 ### Customize the configuration
 See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js).
+
+
+...
+
+## Resources
+### More documentation
+
+#### Netlify
+ - [Page not found on reload with Netlify](https://medium.com/@ishoshot/page-not-found-on-reload-vuejs-netlify-c71716e97e6)
