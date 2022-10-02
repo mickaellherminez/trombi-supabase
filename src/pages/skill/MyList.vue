@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div class="row">
-      <q-table title="Skills" :rows="rows" :columns="columns" row-key="id" class="col-12">
+      <q-table title="Skills" :rows="skills" :columns="columns" row-key="id" class="col-12" :loading="loading">
 
         <template v-slot:top>
           <span class="text-h6">
@@ -38,19 +38,36 @@ const columns = [
   { name: 'actions', align: 'right', label: 'Actions', field: 'name', sortable: true }
 ]
 
-const rows = [{
-  id: '123',
-  name: 'AngularJs'
-}]
-
-import { defineComponent } from 'vue'
+import { defineComponent, ref, onMounted } from 'vue'
+import useApi from 'src/composables/UseApi'
+import useNotify from 'src/composables/UseNotify'
 
 export default defineComponent({
   name: 'PageCategoryList',
   setup() {
+    const skills = ref([])
+    const loading = ref(true)
+
+    const { list } = useApi()
+    const { notifyError } = useNotify()
+
+    const handleListSkills = async () => {
+      try {
+        loading.value = true
+        skills.value = await list('category')
+        loading.value = false
+      } catch (error) {
+        notifyError(error.message)
+      }
+    }
+
+    onMounted(() => {
+      handleListSkills()
+    })
     return {
       columns,
-      rows
+      skills,
+      loading
     }
   }
 })
