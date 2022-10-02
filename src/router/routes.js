@@ -17,7 +17,9 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: 'me', name: 'me', component: () => import ('pages/Me.vue') },
-      { path: 'skill', name: 'skill', component: () => import ('pages/skill/MyList.vue') }
+      { path: 'skill', name: 'skill', component: () => import ('pages/skill/MyList.vue') },
+      { path: 'form-skill', name: 'form-skill', component: () => import ('pages/skill/MyForm.vue') },
+      { path: 'form-skill/:id?', name: 'form-skill', component: () => import('pages/skill/MyForm.vue') },
     ],
     meta: {
       requiresAuth: true
