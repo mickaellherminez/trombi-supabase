@@ -1,12 +1,12 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
-      <q-toolbar class="text-black">
+      <q-toolbar class="text-black bg-info">
         <q-toolbar-title>
-          <q-btn v-if="$q.screen.lt.xs || $q.screen.lt.sm" :to="{ name: 'register' }" outline color="info">
+          <q-btn v-if="$q.screen.lt.xs || $q.screen.lt.sm" :to="{ name: 'register' }" flat>
             <img alt="One Resources logo" src="~assets/One-resources-logo-short.svg" style="height: 32px;">
           </q-btn>
-          <q-btn v-else :to="{ name: 'register' }" outline color="info">
+          <q-btn v-else :to="{ name: 'register' }" flat>
             <img alt="One Resources logo" src="~assets/One-resources-logo.svg" style="width: 200px;">
           </q-btn>
         </q-toolbar-title>
@@ -19,7 +19,7 @@
 
 
 
-    <q-footer elevated class="text-black" style="height:40px">
+    <q-footer elevated class="text-black bg-info" style="height:40px">
       <q-toolbar>
         <q-toolbar-title v-if="!sizeXs && !sizeSm && !sizeMd"
           class="text-subtitle1 text-left col-md-2 col-lg-2 col-xl-1 q-mb-md">V{{version}}</q-toolbar-title>
@@ -95,6 +95,7 @@ export default defineComponent({
     const $q = useQuasar()
 
     return {
+      // TODO: Code to share
       version: JSON.stringify(require("../../package.json").version).replaceAll('"', ''),
       year: new Date().getFullYear(),
       goTo(url) {

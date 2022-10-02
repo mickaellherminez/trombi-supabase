@@ -10,7 +10,7 @@
         </q-input>
 
         <div class="full-width q-pt-md q-gutter-y-sm">
-          <q-btn label="Send New Password" color="info" class="full-width" outline rounded type="submit" />
+          <q-btn label="Send New Password" class="full-width" outline rounded type="submit" />
         </div>
       </div>
     </q-form>

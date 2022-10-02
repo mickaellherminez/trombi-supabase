@@ -1,19 +1,16 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
-      <q-toolbar class="text-black">
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
-
-        <q-toolbar-title>
-          TROMBI
-        </q-toolbar-title>
+      <q-toolbar class="text-black bg-info">
+        <q-btn flat dense icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
+          <q-toolbar-title>
+            <q-btn v-if="$q.screen.lt.xs || $q.screen.lt.sm" :to="{ name: 'register' }" flat>
+              <img alt="One Resources logo" src="~assets/One-resources-logo-short.svg" style="height: 32px;">
+            </q-btn>
+            <q-btn v-else :to="{ name: 'register' }" flat>
+              <img alt="One Resources logo" src="~assets/One-resources-logo.svg" style="width: 200px;">
+            </q-btn>
+          </q-toolbar-title>
 
         <!-- <div>Quasar v{{ $q.version }}</div> -->
         <q-btn-dropdown flat icon="person">
@@ -28,25 +25,77 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
+    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
+        <q-item-label header>
+          Menu
         </q-item-label>
 
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
+        <EssentialLink v-for="link in essentialLinks" :key="link.title" v-bind="link" />
       </q-list>
     </q-drawer>
+
+    
+    <q-footer elevated class="text-black bg-info" style="height:40px">
+      <q-toolbar>
+        <q-toolbar-title v-if="!sizeXs && !sizeSm && !sizeMd"
+          class="text-subtitle1 text-left col-md-2 col-lg-2 col-xl-1 q-mb-md">V{{version}}</q-toolbar-title>
+        <q-toolbar-title class="text-center col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-10 q-mb-md">
+          <q-btn flat round @click="goTo('https://www.objectware.fr/')" icon="mdi-adjust">
+            <q-tooltip class="bg-accent text-black shadow-4 text-body2" size="2rem" :offset="[200, 20]"
+              transition-show="rotate" transition-hide="rotate">
+              Website Objectware
+            </q-tooltip>
+          </q-btn>
+          <q-btn flat round @click="goTo('https://training.objectware.fr/')" icon="mdi-school">
+            <q-tooltip class="bg-accent text-black shadow-4 text-body2" size="2rem" :offset="[200, 20]"
+              transition-show="rotate" transition-hide="rotate">
+              Website Objectware Training
+            </q-tooltip>
+          </q-btn>
+          <q-btn flat round @click="goTo('https://www.linkedin.com/company/objectware/mycompany/verification/')"
+            icon="mdi-linkedin">
+            <q-tooltip class="bg-accent text-black shadow-4 text-body2" size="2rem" :offset="[200, 20]"
+              transition-show="rotate" transition-hide="rotate">
+              Objectware on Linkedin
+            </q-tooltip>
+          </q-btn>
+          <q-btn flat round @click="goTo('https://www.facebook.com/Objectware-486743308145905')" icon="mdi-facebook">
+            <q-tooltip class="bg-accent text-black shadow-4 text-body2" size="2rem" :offset="[200, 20]"
+              transition-show="rotate" transition-hide="rotate">
+              Objectware on Facebook
+            </q-tooltip>
+          </q-btn>
+          <q-btn flat round @click="goTo('https://twitter.com/Objectware1')" icon="mdi-twitter">
+            <q-tooltip class="bg-accent text-black shadow-4 text-body2" size="2rem" :offset="[200, 20]"
+              transition-show="rotate" transition-hide="rotate">
+              Objectware on Twitter
+            </q-tooltip>
+          </q-btn>
+          <q-btn flat round @click="goTo('https://objectware-fr.workplace.com/')" icon="mdi-facebook-workplace">
+            <q-tooltip class="bg-accent text-black shadow-4 text-body2" size="2rem" :offset="[200, 20]"
+              transition-show="rotate" transition-hide="rotate">
+              Objectware on Workplace
+            </q-tooltip>
+          </q-btn>
+          <q-btn v-if="!sizeXs" flat round @click="goTo('https://www.instagram.com/objectware/')" icon="mdi-instagram">
+            <q-tooltip class="bg-accent text-black shadow-4 text-body2" size="2rem" :offset="[200, 20]"
+              transition-show="rotate" transition-hide="rotate">
+              Objectware on Instagram
+            </q-tooltip>
+          </q-btn>
+          <q-btn v-if="!sizeXs" flat round @click="goTo('https://www.youtube.com/channel/UCZRfp0p4vC8WxbQVAymuZjw')"
+            icon="mdi-youtube">
+            <q-tooltip class="bg-accent text-black shadow-4 text-body2" size="2rem" :offset="[200, 20]"
+              transition-show="rotate" transition-hide="rotate">
+              Objectware on Youtube
+            </q-tooltip>
+          </q-btn>
+        </q-toolbar-title>
+        <q-toolbar-title v-if="!sizeXs && !sizeSm && !sizeMd"
+          class="text-subtitle1 text-right col-md-2 col-lg-2 col-xl-1 q-mb-md">TeamJS©{{ year }}</q-toolbar-title>
+      </q-toolbar>
+    </q-footer>
 
     <q-page-container>
       <router-view />
@@ -60,47 +109,24 @@ import EssentialLink from 'components/EssentialLink.vue'
 
 const linksList = [
   {
-    title: 'Docs',
+    title: 'Home',
     caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
+    icon: 'mdi-home',
+    routeName: 'me'
   },
   {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
+    title: 'Skills',
+    caption: 'quasar.dev',
+    icon: 'mdi-briefcase-check-outline',
+    routeName: 'skill'
   }
+  // ,
+  // {
+  //   title: 'Colab',
+  //   caption: 'quasar.dev',
+  //   icon: 'mdi-account-multiple-check',
+  //   routeName: 'mez'
+  // }
 ]
 
 import { defineComponent, ref } from 'vue'
@@ -115,7 +141,7 @@ export default defineComponent({
     EssentialLink
   },
 
-  setup () {
+  setup() {
     const leftDrawerOpen = ref(false)
 
     const $q = useQuasar()
@@ -128,7 +154,6 @@ export default defineComponent({
       $q.dialog({
         title: 'Logout',
         message: 'Do you really want to leave ?',
-        color: 'info',
         cancel: true,
         persistent: true
       }).onOk(async () => {
@@ -138,12 +163,35 @@ export default defineComponent({
     }
 
     return {
+      // TODO: Code to share
+      version: JSON.stringify(require("../../package.json").version).replaceAll('"', ''),
+      year: new Date().getFullYear(),
+      goTo(url) {
+        window.open(url, '_blank')
+      },
       essentialLinks: linksList,
       leftDrawerOpen,
-      toggleLeftDrawer () {
+      toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value
       },
       handleLogout
+    }
+  },
+  computed: {
+    sizeXs() {
+      return this.$q.screen.name === 'xs'
+    },
+    sizeSm() {
+      return this.$q.screen.name === 'sm'
+    },
+    sizeMd() {
+      return this.$q.screen === 'md'
+    },
+    sizeLg() {
+      return this.$q.screen === 'lg'
+    },
+    sizeXl() {
+      return this.$q.screen === 'xl'
     }
   }
 })

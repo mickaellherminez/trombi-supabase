@@ -27,5 +27,8 @@
   "peacock.color": "green",
   "[svg]": {
     "editor.defaultFormatter": "jock.svg"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "Vue.volar"
   }
 }

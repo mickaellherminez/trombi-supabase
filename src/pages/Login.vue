@@ -26,7 +26,7 @@
       <q-form class="row justify-center" @submit.prevent="handleLogin">
         <p class="col-12 text-h5 text-center"> Login </p>
         <div class="col-md-4 col-sm-6 col-xs-10 q-gutter-y-md">
-          <q-input label="Email" color="info" v-model="form.email" lazy-rules :rules="[val => validateEmail(val),]" />
+          <q-input label="Email" v-model="form.email" lazy-rules :rules="[val => validateEmail(val),]" />
 
           <q-input v-model="form.password" label="Password" :type="isPwd ? 'password' : 'text'" lazy-rules
             :rules="[val => (val && val.length >= 6) || 'Password required with minimum 6 characters']">
@@ -36,12 +36,12 @@
           </q-input>
 
           <div class="full-width q-pt-md">
-            <q-btn label="Login" color="info" class="full-width" outline rounded type="submit" />
+            <q-btn label="Login" color="primary" class="full-width" outline rounded type="submit" />
           </div>
 
           <div class="full-width q-gutter-y-sm">
-            <q-btn label="Register" color="info" class="full-width" rounded flat to="/register" size="sm" />
-            <q-btn label="Forgot Password ?" color="info" class="full-width" rounded flat :to="{ name: 'forgot-password'}"
+            <q-btn label="Register" color="primary" class="full-width" rounded flat to="/register" size="sm" />
+            <q-btn label="Forgot Password ?" color="primary" class="full-width" rounded flat :to="{ name: 'forgot-password'}"
               size="sm" />
           </div>
         </div>
@@ -99,7 +99,7 @@ export default defineComponent({
   methods: {
     validateEmail(email) {
       if (email) {
-        return /[a-z0-9]+@gmail.com/.test(email) ? true : 'Objectware email required';
+        return /[a-z0-9]+@objectware.fr/.test(email) ? true : 'Objectware email required';
       } else {
         return 'Email is required'
       }

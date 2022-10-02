@@ -7,7 +7,6 @@
         <q-input
           label="Email"
           v-model="email"
-          color="info"
           lazy-rules
           :rules="[val => validateEmail(val),]"
           type="email"
@@ -16,7 +15,7 @@
         <div class="full-width q-pt-md q-gutter-y-sm">
           <q-btn
             label="Send Reset Email"
-            color="info"
+            color="primary"
             class="full-width"
             outline
             rounded
@@ -66,7 +65,7 @@ export default defineComponent({
   methods: {
     validateEmail(email) {
       if (email) {
-        return /[a-z0-9]+@gmail.com/.test(email) ? true : 'Objectware email required';
+        return /[a-z0-9]+@objectware.fr/.test(email) ? true : 'Objectware email required';
       } else {
         return 'Email is required'
       }
