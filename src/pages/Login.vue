@@ -5,44 +5,81 @@
       enter-active-class="animated backInUp"
       leave-active-class="animated backOutUp"
       v-show="loader"
-      >
-        <div class="frame">
-          <div class="circle"></div>
-          <div class="line left"></div>
-          <div class="line right"></div>
-          <div class="bracket left"></div>
-          <div class="bracket right"></div>
-          <div class="small top">Wellcome to</div>
-          <div class="big">One Resources</div>
-          <div class="small bottom">ObjectWare</div>
-          <div class="hide top"></div>
-          <div class="hide bottom"></div>
+    >
+      <div class="frame">
+        <div class="circle"></div>
+        <div class="line left"></div>
+        <div class="line right"></div>
+        <div class="bracket left"></div>
+        <div class="bracket right"></div>
+        <div class="small top">Wellcome to</div>
+        <div class="big">One Resources</div>
+        <div class="small bottom">ObjectWare</div>
+        <div class="hide top"></div>
+        <div class="hide bottom"></div>
       </div>
     </transition>
-    <transition
-      enter-active-class="animated backInUp"
-      v-show="!loader"
-      >
+    <transition enter-active-class="animated backInUp" v-show="!loader">
       <q-form class="row justify-center" @submit.prevent="handleLogin">
-        <p class="col-12 text-h5 text-center"> Login </p>
+        <p class="col-12 text-h5 text-center">Login</p>
         <div class="col-md-4 col-sm-6 col-xs-10 q-gutter-y-md">
-          <q-input label="Email" v-model="form.email" lazy-rules :rules="[val => validateEmail(val),]" />
+          <q-input
+            label="Email"
+            v-model="form.email"
+            lazy-rules
+            :rules="[(val) => validateEmail(val)]"
+          />
 
-          <q-input v-model="form.password" label="Password" :type="isPwd ? 'password' : 'text'" lazy-rules
-            :rules="[val => (val && val.length >= 6) || 'Password required with minimum 6 characters']">
+          <q-input
+            v-model="form.password"
+            label="Password"
+            :type="isPwd ? 'password' : 'text'"
+            lazy-rules
+            :rules="[
+              (val) =>
+                (val && val.length >= 6) ||
+                'Password required with minimum 6 characters',
+            ]"
+          >
             <template v-slot:append>
-              <q-icon :name="isPwd ? 'visibility_off' : 'visibility'" class="cursor-pointer" @click="isPwd = !isPwd" />
+              <q-icon
+                :name="isPwd ? 'visibility_off' : 'visibility'"
+                class="cursor-pointer"
+                @click="isPwd = !isPwd"
+              />
             </template>
           </q-input>
 
           <div class="full-width q-pt-md">
-            <q-btn label="Login" color="primary" class="full-width" outline rounded type="submit" />
+            <q-btn
+              label="Login"
+              color="primary"
+              class="full-width"
+              outline
+              rounded
+              type="submit"
+            />
           </div>
 
           <div class="full-width q-gutter-y-sm">
-            <q-btn label="Register" color="primary" class="full-width" rounded flat to="/register" size="sm" />
-            <q-btn label="Forgot Password ?" color="primary" class="full-width" rounded flat :to="{ name: 'forgot-password'}"
-              size="sm" />
+            <q-btn
+              label="Register"
+              color="primary"
+              class="full-width"
+              rounded
+              flat
+              to="/register"
+              size="sm"
+            />
+            <q-btn
+              label="Forgot Password ?"
+              color="primary"
+              class="full-width"
+              rounded
+              flat
+              :to="{ name: 'forgot-password' }"
+              size="sm"
+            />
           </div>
         </div>
       </q-form>
@@ -51,64 +88,67 @@
 </template>
 
 <script>
-import { defineComponent, onMounted, ref } from 'vue'
-import useAuthUser from 'src/composables/UseAuthUser'
-import useNotify from 'src/composables/UseNotify'
-import { useRouter } from 'vue-router'
+import { defineComponent, onMounted, ref } from "vue";
+import useAuthUser from "src/composables/UseAuthUser";
+import useNotify from "src/composables/UseNotify";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
-  name: 'LoginPage',
+  name: "LoginPage",
 
   setup() {
-    const router = useRouter()
+    const router = useRouter();
 
-    const { login, isLoggedIn } = useAuthUser()
+    const { login, isLoggedIn } = useAuthUser();
 
-    const { notifyError, notifySuccess } = useNotify()
+    const { notifyError, notifySuccess } = useNotify();
 
     const form = ref({
-      email: '',
-      password: ''
-    })
+      email: "",
+      password: "",
+    });
 
     onMounted(() => {
       if (isLoggedIn) {
-        router.push({ name: 'me' })
+        router.push({ name: "me" });
       }
-    })
+    });
 
     const handleLogin = async () => {
       try {
-        await login(form.value)
-        notifySuccess('Login successfully!')
-        router.push({ name: 'me' })
-      }
-      catch (error) {
-        notifyError(error.message)
+        await login(form.value);
+        notifySuccess("Login successfully!");
+        router.push({ name: "me" });
+      } catch (error) {
+        notifyError(error.message);
         // alert (error. message)
       }
-    }
+    };
 
     return {
       loader: ref(true),
       isPwd: ref(true),
       form,
-      handleLogin
-    }
+      handleLogin,
+    };
   },
   methods: {
     validateEmail(email) {
       if (email) {
-        return /[a-z0-9]+@objectware.fr/.test(email) ? true : 'Objectware email required';
+        return /[a-z0-9]+@objectware.fr/.test(email)
+          ? true
+          : "Objectware email required";
       } else {
-        return 'Email is required'
+        return "Email is required";
       }
-    }
+    },
   },
   mounted() {
-    setTimeout(() => { this.loader = false }, 3500)
-  }
-})
+    setTimeout(() => {
+      this.loader = false;
+    }, 3500);
+  },
+});
 </script>
 <style scoped>
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:700,300);

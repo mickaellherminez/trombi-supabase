@@ -1,14 +1,13 @@
 <template>
   <q-page padding>
     <q-form class="row justify-center" @submit.prevent="handleForgotPassowrd">
-      <p class="col-12 text-h5 text-center"> Reset Password </p>
+      <p class="col-12 text-h5 text-center">Reset Password</p>
       <div class="col-md-4 col-sm-6 col-xs-10 q-gutter-y-md">
-
         <q-input
           label="Email"
           v-model="email"
           lazy-rules
-          :rules="[val => validateEmail(val),]"
+          :rules="[(val) => validateEmail(val)]"
           type="email"
         />
 
@@ -37,39 +36,41 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
-import useAuthUser from 'src/composables/UseAuthUser'
-import useNotify from 'src/composables/UseNotify'
+import { defineComponent, ref } from "vue";
+import useAuthUser from "src/composables/UseAuthUser";
+import useNotify from "src/composables/UseNotify";
 
 export default defineComponent({
-  setup () {
-    const { sendPasswordRestEmail } = useAuthUser()
-    const { notifyError, notifySuccess } = useNotify()
+  setup() {
+    const { sendPasswordRestEmail } = useAuthUser();
+    const { notifyError, notifySuccess } = useNotify();
 
-    const email = ref('')
+    const email = ref("");
 
     const handleForgotPassowrd = async () => {
       try {
-        await sendPasswordRestEmail(email.value)
-        notifySuccess(`Password reset email sent to: ${email.value}`)
+        await sendPasswordRestEmail(email.value);
+        notifySuccess(`Password reset email sent to: ${email.value}`);
       } catch (error) {
-        notifyError(error.message)
+        notifyError(error.message);
       }
-    }
+    };
 
     return {
       email,
-      handleForgotPassowrd
-    }
+      handleForgotPassowrd,
+    };
   },
   methods: {
     validateEmail(email) {
       if (email) {
-        return /[a-z0-9]+@objectware.fr/.test(email) ? true : 'Objectware email required';
+        return /[a-z0-9]+@objectware.fr/.test(email)
+          ? true
+          : "Objectware email required";
       } else {
-        return 'Email is required'
+        return "Email is required";
       }
-    }
-  }
-})
+    },
+  },
+});
 </script>

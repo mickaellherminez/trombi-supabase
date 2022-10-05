@@ -6,8 +6,10 @@
   "author": "Lherminez <mickael.lherminez@gmail.com>",
   "private": true,
   "scripts": {
+    "dev": "quasar dev",
     "lint": "eslint --ext .js,.vue ./",
     "format": "prettier --write \"**/*.{js,vue,scss,html,md,json}\" --ignore-path .gitignore",
+    "format: check": "prettier --check .",
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {

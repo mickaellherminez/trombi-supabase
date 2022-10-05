@@ -1,13 +1,6 @@
 <template>
-  <q-item
-    clickable
-    :to="{ name: routeName }"
-    exact
-  >
-    <q-item-section
-      v-if="icon"
-      avatar
-    >
+  <q-item clickable :to="{ name: routeName }" exact>
+    <q-item-section v-if="icon" avatar>
       <q-icon :name="icon" />
     </q-item-section>
 
@@ -19,29 +12,29 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: 'EssentialLink',
+  name: "EssentialLink",
   props: {
     title: {
       type: String,
-      required: true
+      required: true,
     },
 
     caption: {
       type: String,
-      default: ''
+      default: "",
     },
 
     routeName: {
-      type: String
+      type: String,
     },
 
     icon: {
       type: String,
-      default: ''
-    }
-  }
-})
+      default: "",
+    },
+  },
+});
 </script>
