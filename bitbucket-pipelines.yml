@@ -15,6 +15,7 @@ pipelines:
             script:
               - npm install
               - npm test
+              - npm install -g @quasar/cli
               - quasar build
         - step:
             name: Code linting
