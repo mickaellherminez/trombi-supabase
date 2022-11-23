@@ -20,6 +20,7 @@ pipelines:
         - step:
             name: Code linting
             script:
+              - npm install --save-dev --save-exact prettier
               - npm run format
             caches:
               - node
