@@ -7,10 +7,12 @@
   "private": true,
   "scripts": {
     "dev": "quasar dev",
-    "lint": "eslint --ext .js,.vue ./",
     "format": "prettier --write \"**/*.{js,vue,scss,html,md,json}\" --ignore-path .gitignore",
     "format: check": "prettier --check .",
+    "lint": "eslint --ext .js,.vue ./",
     "outstall": "rm -rf node_modules/ && npm install && npm outdated",
+    "pull": "git pull mlherminez main && git pull origin main",
+    "push": "git push mlherminez main && git push origin main",
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
