@@ -9,18 +9,19 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: npm ci
+      - run: npm install
       - run: npm test
-
+      - run: npm install -g @quasar/cli
+      - run: quasar build
   publish-gpr:
-    needs: build
+    needs: build-and-test
     runs-on: ubuntu-latest
     permissions:
       contents: read
