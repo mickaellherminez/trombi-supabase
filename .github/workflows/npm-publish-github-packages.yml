@@ -9,19 +9,43 @@ on:
       - main
 
 jobs:
-  build-and-test:
+  npm-install:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: npm install
+      - run: npm install   
+  npm-test:
+    needs: npm-install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
       - run: npm test
-      - run: npm install -g @quasar/cli
-      - run: quasar build
+  quasar-install:
+    needs: npm-test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: npm install -g @quasar/cli     
+  quasar-build:
+    needs: quasar-install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: quasar build        
   publish-gpr:
-    needs: build-and-test
+    needs: quasar-build
     runs-on: ubuntu-latest
     permissions:
       contents: read
