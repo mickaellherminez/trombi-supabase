@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  npm-install:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -17,38 +17,16 @@ jobs:
         with:
           node-version: 16
       - run: npm install   
-  npm-test:
-    needs: npm-install
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
       - run: npm test
-  quasar-install-build:
-    needs: npm-test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
       - run: npm install -g @quasar/cli
-      - run: quasar build        
+      - run: quasar build
   publish-gpr:
-    needs: quasar-install-build
+    needs: build-and-test
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-          registry-url: https://npm.pkg.github.com/
-      - run: npm ci
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - run: npm install --save-dev --save-exact prettier
+      - run: npm run format
